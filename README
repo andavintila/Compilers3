@@ -1,0 +1,20 @@
+Vintila Alexandra 342 C3 
+Tema de casă 4 - Analize si optimizari pe cod intermediar
+
+Modalitatea de rulare:
+- java -cp lib/antlr-3.1.1.jar:bin/ ro.pub.cpl.coolir.Main file.ir
+- "file.ir" reprezinta fisierul de intrare 
+- rezulta doua fisiere: file.ir_cfa si file.ir_dfa, primul cu analiza fluxului de control si al doilea cu analiza fluxului de date.
+
+
+BasicBlock.java:
+
+	- clasa BasicBlock reprezinta entitatea unui basic block si in ea retin atribute precum listele cu succesori si predecesori, multimile in si out, lista cu instructiuni ce fac parte din basic block-ul respectiv. Contine si metodele pentru afisarea in fisier a multimilor respective.
+	
+Method.java:
+
+	- Pentru analiza fluxului de control am parcurs o data toate instructiunile pentru a inregistra label-urile la care se face jump, si apoi am mai realizat o parcurgere pentru crearea efectiva a basic block-urilor si a legaturilor intre ele. Am folosit mai multe Hashtable-uri pentru a putea realiza totul in aceasta parcurgere. Pentru a retine basic blockurile predecesoare unor anumite labeluri am folosit tot un Hashtable in care retin pentru un label toate blockurile din care se face jump inainte de crearea efectiva a blocului la care se face jump si atunci cand ajung la labelul respectiv si creez blockurile adaug predecesorii din lista si actualizez si succesorii. 
+
+	- Pentru analiza fluxului de date am parcurs o data pentru a inregistra toti registrii folositi si i-am adaugat intr-o lista. Fiecare basic block are o multime in si o multime out. Daca unul dintre registrii nu are o valoare in Hashtable-ul in / out atunci inseamna ca valoarea este UNDEF, iar daca valoarea este -1 atunci este NAC, in rest in Hashtable-uri retin valorile registrilor respectivi. Am implementat logica de modificare a datelor din enunt, conform cu tipul instructiunilor.
+Realizez mai multe parcurgeri pana cand nu mai exista modificari de propagat intre basic blockuri. 
+
